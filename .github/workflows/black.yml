@@ -8,6 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: psf/black@stable
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
         with:
-          options: "--check --verbose"
-          src: "**.py"
+          files: **/*.py
