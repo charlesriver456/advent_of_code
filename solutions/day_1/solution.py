@@ -30,6 +30,7 @@ def sum_elf_food(file: TextIO) -> dict:
 def get_max_calorie_value(dictionary_of_calories: dict) -> int:
     return max(dictionary_of_calories.values())
 
+
 def first_three_calorie_sum(dictionary_of_calories: dict) -> int:
     calories_list = list(dictionary_of_calories.values())
     calories_list.sort(reverse=True)
