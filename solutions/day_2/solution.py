@@ -40,7 +40,7 @@ GAME_TABLE_PART_2 = {
     },
 }
 
-
+# DB: Again be mindful of the closing of the file. Use a `with` clause
 def open_file(file_location: str) -> TextIO:
     f = open(TEXT_FILE_LOCATION, "r")
     return f
@@ -50,8 +50,15 @@ def calculate_points(file: TextIO) -> int:
     file_data_in_list = file.read().split("\n")
     score_part_one = 0
     score_part_two = 0
+    
+    # DB: Clean up `debug` at the end
     debug = 0
     for line in file_data_in_list:
+        # I would have written this as:
+        """
+        if line != "":
+            # Do ths stuff
+        """
         if line == "":
             pass
         else:
@@ -65,6 +72,8 @@ def calculate_points(file: TextIO) -> int:
 def main():
     file = open_file(TEXT_FILE_LOCATION)
     score_part_one, score_part_two = calculate_points(file)
+    
+    # I would have used an f-string. ie: f"Your score for part1 is: {score_part_one}"
     print("Your score for part1 is: " + str(score_part_one))
     print("Your score for part2 is: " + str(score_part_two))
 
