@@ -31,11 +31,19 @@ def get_max_calorie_value(dictionary_of_calories: dict) -> int:
     return max(dictionary_of_calories.values())
 
 
+def first_three_calorie_sum(dictionary_of_calories: dict) -> int:
+    calories_list = list(dictionary_of_calories.values())
+    calories_list.sort(reverse=True)
+    sum_of_top_three_elves = sum(calories_list[:3])
+    return sum_of_top_three_elves
+
+
 # do it all
 def main():
     file = open_file(TEXT_FILE_LOCATION)
     calorie_dict = sum_elf_food(file)
     print("Max number of calories is: " + str(get_max_calorie_value(calorie_dict)))
+    print("Top three sum of calories is: " + str(first_three_calorie_sum(calorie_dict)))
 
 
 if __name__ == "__main__":
