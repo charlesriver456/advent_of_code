@@ -23,6 +23,30 @@ GAME_TABLE = {
 }
 
 
-def open_file(file: str) -> TextIO:
+def open_file(file_location: str) -> TextIO:
     f = open(TEXT_FILE_LOCATION, "r")
     return f
+
+
+def calculate_points(file: TextIO) -> int:
+    file_data_in_list = file.read().split("\n")
+    print(file_data_in_list)
+    score = 0
+    debug = 0
+    for line in file_data_in_list:
+        score += GAME_TABLE[line[0]][line[2]]
+        debug += 1
+        if line == "":
+            print("passed")
+            pass
+    return score
+
+
+# do it all
+def main():
+    file = open_file(TEXT_FILE_LOCATION)
+    print("Your score is: " + str(calculate_points(file)))
+
+
+if __name__ == "__main__":
+    main()
