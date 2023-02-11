@@ -12,7 +12,7 @@ def open_file(file: str) -> TextIO:
 # read the text file
 # if it's new line take the sum and create that as new value using incrementing value as key
 # othewise add the value in the line to the sum and keep going
-def sum_elf_food(file: TextIO) -> dict:
+def sum_elf_food(file_location: TextIO) -> dict:
     elf_number = 1
     calorie_sum = 0
     dict_of_cals = {}
