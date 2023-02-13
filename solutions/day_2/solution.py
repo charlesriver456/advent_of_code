@@ -41,32 +41,25 @@ GAME_TABLE_PART_2 = {
 }
 
 
-def open_file(file_location: str) -> TextIO:
-    f = open(TEXT_FILE_LOCATION, "r")
-    return f
-
-
 def calculate_points(file: TextIO) -> int:
     file_data_in_list = file.read().split("\n")
     score_part_one = 0
     score_part_two = 0
-    debug = 0
     for line in file_data_in_list:
-        if line == "":
-            pass
-        else:
+        if line != "":
             score_part_one += GAME_TABLE_PART_1[line[0]][line[2]]
             score_part_two += GAME_TABLE_PART_2[line[0]][line[2]]
-            debug += 1
+        else:
+            pass
     return score_part_one, score_part_two
 
 
 # do it all
 def main():
-    file = open_file(TEXT_FILE_LOCATION)
-    score_part_one, score_part_two = calculate_points(file)
-    print("Your score for part1 is: " + str(score_part_one))
-    print("Your score for part2 is: " + str(score_part_two))
+    with open(TEXT_FILE_LOCATION) as file:
+        score_part_one, score_part_two = calculate_points(file)
+        print(f"Your score for part1 is: {str(score_part_one)}")
+        print(f"Your score for part2 is: {str(score_part_two)}")
 
 
 if __name__ == "__main__":
