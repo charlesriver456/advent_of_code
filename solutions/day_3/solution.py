@@ -34,10 +34,9 @@ def create_groups(acc: List[List], val: map) -> List[List]:
 
 def main():
     with open(TEXT_FILE_LOCATION) as file:
-        lines_part_1 = map(lambda s: s.rstrip("\n"), file.readlines())
-        lines_part_2 = map(lambda s: s.rstrip("\n"), file.readlines())
-    elf_item_list = reduce(find_intersection, lines_part_1, [])
-    group_list = reduce(create_groups, lines_part_2, [[]])
+        lines = map(lambda s: s.rstrip("\n"), file.readlines())
+    elf_item_list = reduce(find_intersection, lines, [])
+    group_list = reduce(create_groups, lines, [[]])
     print(group_list)
     print(f"Sum for part one is: {sum(elf_item_list)}")
 
