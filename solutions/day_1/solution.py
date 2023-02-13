@@ -4,25 +4,20 @@ from typing import TextIO
 TEXT_FILE_LOCATION = "input.txt"
 
 
-def open_file(file: str) -> TextIO:
-    f = open(TEXT_FILE_LOCATION, "r")
-    return f
-
-
 # read the text file
 # if it's new line take the sum and create that as new value using incrementing value as key
 # othewise add the value in the line to the sum and keep going
-def sum_elf_food(file_location: TextIO) -> dict:
+# start with elf 1 because that's what the example started with
+def sum_elf_food(file: TextIO) -> dict:
     elf_number = 1
-    calorie_sum = 0
     dict_of_cals = {}
     for line in file:
-        if line in ("\n", "\r\n"):
-            dict_of_cals[elf_number] = calorie_sum
-            calorie_sum = 0
+        if line in {"\n", "\r\n"}:
+            # Move on to the next elf
             elf_number += 1
         else:
-            calorie_sum += int(line)
+            # The `get` does a query, but can supply a default value if the key does not exist
+            dict_of_cals[elf_number] = dict_of_cals.get(elf_number, 0) + int(line)
     return dict_of_cals
 
 
@@ -40,10 +35,13 @@ def first_three_calorie_sum(dictionary_of_calories: dict) -> int:
 
 # do it all
 def main():
-    file = open_file(TEXT_FILE_LOCATION)
-    calorie_dict = sum_elf_food(file)
-    print("Max number of calories is: " + str(get_max_calorie_value(calorie_dict)))
-    print("Top three sum of calories is: " + str(first_three_calorie_sum(calorie_dict)))
+    with open(TEXT_FILE_LOCATION) as file:
+        calorie_dict = sum_elf_food(file)
+        print("Max number of calories is: " + str(get_max_calorie_value(calorie_dict)))
+        print(
+            "Top three sum of calories is: "
+            + str(first_three_calorie_sum(calorie_dict))
+        )
 
 
 if __name__ == "__main__":
