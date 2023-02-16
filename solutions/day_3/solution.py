@@ -19,7 +19,7 @@ def find_intersection(acc: List, val: List[str]) -> List[int]:
     return acc
 
 
-def create_groups(acc: List[List], val: List[str]) -> List[int]:
+def calculate_letter_value(acc: List, val: List[str]) -> List[int]:
     char_to_add = set(val[0]).intersection(set(val[1]).intersection(set(val[2]))).pop()
     if char_to_add.islower():
         acc.append(ord(char_to_add) - LOWER_CASE_ORD_DIFFERENCE)
@@ -33,7 +33,7 @@ def main():
         lines = list(map(lambda s: s.rstrip("\n"), file.readlines()))
     elf_item_list = reduce(find_intersection, lines, [])
     final = list(zip(*[iter(lines)] * 3))
-    group_list = reduce(create_groups, final, [])
+    group_list = reduce(calculate_letter_value, final, [])
     print(f"Sum for part one is: {sum(elf_item_list)}")
     print(f"Sum for part two is: {sum(group_list)}")
 
