@@ -1,5 +1,3 @@
-# read in txt
-
 from typing import TextIO
 
 TEXT_FILE_LOCATION = "input.txt"
