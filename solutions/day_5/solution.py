@@ -5,12 +5,14 @@ from functools import reduce
 TEXT_FILE_LOCATION = "input.txt"
 BATCH_SIZE = 3
 
-CRATE_HOLDER = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []}
+
+def edit_crate_holder(size: int) -> dict:
+    global CRATE_HOLDER
+    CRATE_HOLDER = {list_of_crates: [] for list_of_crates in range(1, size + 2)}
 
 
 def whitespace_helper(val: str) -> bool:
-    if val != " ":
-        return True
+    return val != " "
 
 
 def add_to_crate_holder(acc: None, val: List[str]) -> None:
@@ -50,6 +52,7 @@ def main():
         moves = lines[10:]
         boxes.reverse()
         boxes = list(map(lambda s: [s], boxes))
+        print(boxes)
         moves = list(
             map(
                 lambda s: s.replace("move", "")
@@ -59,6 +62,8 @@ def main():
                 moves,
             )
         )
+    edit_crate_holder(len(boxes))
+    print(CRATE_HOLDER)
     reduce(add_to_crate_holder, boxes, [[]])
     crates = process(CRATE_HOLDER, moves)
     print(f"Final crates positions are as follows: {crates}")
