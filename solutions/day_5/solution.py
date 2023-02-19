@@ -1,3 +1,4 @@
+import copy
 from typing import List
 from functools import reduce
 
@@ -40,9 +41,24 @@ def process(crates: dict, moves_to_be_made: List[str]) -> dict:
     for val in moves_to_be_made:
         i = int(val[1])
         while i != 0:
-            CRATE_HOLDER[int(val[5])].append(CRATE_HOLDER[int(val[3])].pop())
+            part_one_crates[int(val[5])].append(part_one_crates[int(val[3])].pop())
             i = i - 1
-    return CRATE_HOLDER
+    return part_one_crates
+
+
+def process_part_two(crates: dict, moves_to_be_made: List[str]) -> dict:
+    for val in moves_to_be_made:
+        i = int(val[1])
+        if i > 1:
+            crates_to_be_picked_up = []
+            while i != 0:
+                crates_to_be_picked_up.append(part_two_crates[int(val[3])].pop())
+                i = i - 1
+            crates_to_be_picked_up.reverse()
+            part_two_crates[int(val[5])].extend(crates_to_be_picked_up)
+        else:
+            part_two_crates[int(val[5])].append(part_two_crates[int(val[3])].pop())
+    return part_two_crates
 
 
 def main():
@@ -63,10 +79,15 @@ def main():
             )
         )
     edit_crate_holder(len(boxes))
-    print(CRATE_HOLDER)
     reduce(add_to_crate_holder, boxes, [[]])
-    crates = process(CRATE_HOLDER, moves)
-    print(f"Final crates positions are as follows: {crates}")
+    global part_one_crates
+    global part_two_crates
+    part_one_crates, part_two_crates = CRATE_HOLDER, copy.deepcopy(CRATE_HOLDER)
+    crates = process(part_one_crates, moves)
+    print(f"Final crates positions are as follows for part one: {crates}")
+    print(part_two_crates)
+    crates_2 = process_part_two(part_two_crates, moves)
+    print(f"Final crates positions are as follows for part two: {crates_2}")
 
 
 if __name__ == "__main__":
