@@ -1,39 +1,26 @@
 from typing import List
 
 TEXT_FILE_LOCATION = "input.txt"
-ORD_VAL_SET = set()
 
 
-def read_stream_part1(list_of_ord_chars: List[int]) -> int:
+def read_stream(list_of_ord_chars: List[int], size_of_message: int) -> int:
 
-    for ord_val_index in range(0, len(list_of_ord_chars)):
-        next_group_of_ords = list_of_ord_chars[ord_val_index : ord_val_index + 4]
-        set_of_next_set_of_ords = set(
-            list_of_ord_chars[ord_val_index : ord_val_index + 4]
-        )
+    for ord_val_index in range(len(list_of_ord_chars)):
+        next_group_of_ords = list_of_ord_chars[
+            ord_val_index : ord_val_index + size_of_message
+        ]
+        set_of_next_set_of_ords = set(next_group_of_ords)
         if sorted(next_group_of_ords) == sorted(list(set_of_next_set_of_ords)):
-            return ord_val_index + 4
-
-
-def read_stream_part2(list_of_ord_chars: List[int]) -> int:
-
-    for ord_val_index in range(0, len(list_of_ord_chars)):
-        next_group_of_ords = list_of_ord_chars[ord_val_index : ord_val_index + 14]
-        set_of_next_set_of_ords = set(
-            list_of_ord_chars[ord_val_index : ord_val_index + 14]
-        )
-        if sorted(next_group_of_ords) == sorted(list(set_of_next_set_of_ords)):
-            return ord_val_index + 14
+            return ord_val_index + size_of_message
 
 
 def main():
     with open(TEXT_FILE_LOCATION) as file:
         lines = file.read()
-    lines = list(map(lambda x: ord(x), [*lines]))
-    print(lines)
-    chars_processed = read_stream_part1(lines)
+    lines = list(map(lambda x: x, [*lines]))
+    chars_processed = read_stream(lines, 4)
     print(f"chars processed for part one is {chars_processed}")
-    chars_processed_p2 = read_stream_part2(lines)
+    chars_processed_p2 = read_stream(lines, 14)
     print(f"chars processed for part two is {chars_processed_p2}")
 
 
