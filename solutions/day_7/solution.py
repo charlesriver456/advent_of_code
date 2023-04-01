@@ -1,12 +1,3 @@
-print('test'
+print("test")
 
-
-
-
-
-
-
-
-)
-
-print ('another test')
+print("another test")
